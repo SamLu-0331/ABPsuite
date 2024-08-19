@@ -1,3 +1,4 @@
+using Misars.Foundation.App.SurgeryTimetables;
 using Misars.Foundation.App.Doctors;
 using Misars.Foundation.App.Patients;
 using Volo.Abp.EntityFrameworkCore.Modeling;
@@ -31,6 +32,7 @@ public class AppDbContext :
     IIdentityProDbContext,
     ISaasDbContext
 {
+    public DbSet<SurgeryTimetable> SurgeryTimetables { get; set; } = null!;
     public DbSet<Doctor> Doctors { get; set; } = null!;
     public DbSet<Patient> Patients { get; set; } = null!;
     /* Add DbSet properties for your Aggregate Roots / Entities here. */
@@ -119,6 +121,21 @@ public class AppDbContext :
                 b.Property(x => x.name).HasColumnName(nameof(Doctor.name)).HasMaxLength(DoctorConsts.nameMaxLength);
                 b.Property(x => x.email).HasColumnName(nameof(Doctor.email)).HasMaxLength(DoctorConsts.emailMaxLength);
                 b.Property(x => x.notes).HasColumnName(nameof(Doctor.notes)).HasMaxLength(DoctorConsts.notesMaxLength);
+            });
+
+        }
+        if (builder.IsHostDatabase())
+        {
+            builder.Entity<SurgeryTimetable>(b =>
+            {
+                b.ToTable(AppConsts.DbTablePrefix + "SurgeryTimetables", AppConsts.DbSchema);
+                b.ConfigureByConvention();
+                b.Property(x => x.startdate).HasColumnName(nameof(SurgeryTimetable.startdate));
+                b.Property(x => x.enddate).HasColumnName(nameof(SurgeryTimetable.enddate));
+                b.Property(x => x.doctorname).HasColumnName(nameof(SurgeryTimetable.doctorname)).HasMaxLength(SurgeryTimetableConsts.doctornameMaxLength);
+                b.Property(x => x.patientname).HasColumnName(nameof(SurgeryTimetable.patientname)).HasMaxLength(SurgeryTimetableConsts.patientnameMaxLength);
+                b.HasOne<Doctor>().WithMany().HasForeignKey(x => x.DoctorId).OnDelete(DeleteBehavior.SetNull);
+                b.HasOne<Patient>().WithMany().HasForeignKey(x => x.PatientId).OnDelete(DeleteBehavior.SetNull);
             });
 
         }

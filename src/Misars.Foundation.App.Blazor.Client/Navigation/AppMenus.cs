@@ -12,4 +12,6 @@ public class AppMenus
 
     public const string Doctors = Prefix + ".Doctors";
 
+    public const string SurgeryTimetables = Prefix + ".SurgeryTimetables";
+
 }

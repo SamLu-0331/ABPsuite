@@ -1,3 +1,4 @@
+using Misars.Foundation.App.SurgeryTimetables;
 using Misars.Foundation.App.Doctors;
 using System;
 using Misars.Foundation.App.Shared;
@@ -20,5 +21,11 @@ public class AppApplicationAutoMapperProfile : Profile
 
         CreateMap<Doctor, DoctorDto>();
         CreateMap<Doctor, DoctorExcelDto>();
+
+        CreateMap<SurgeryTimetable, SurgeryTimetableDto>();
+        CreateMap<SurgeryTimetable, SurgeryTimetableExcelDto>();
+        CreateMap<SurgeryTimetableWithNavigationProperties, SurgeryTimetableWithNavigationPropertiesDto>();
+        CreateMap<Doctor, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.name));
+        CreateMap<Patient, LookupDto<Guid>>().ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.name));
     }
 }

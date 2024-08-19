@@ -75,6 +75,20 @@
     "notes": "notes",
     "Doctors": "Doctors",
     "NewDoctor": "New Doctor",
-    "Menu:Doctors": "Doctors"
+    "Menu:Doctors": "Doctors",
+    "Doctor": "Doctor",
+    "Patient": "Patient",
+    "Permission:SurgeryTimetables": "Surgery Timetables",
+    "startdate": "startdate",
+    "enddate": "enddate",
+    "doctorname": "doctorname",
+    "patientname": "patientname",
+    "SurgeryTimetables": "Surgery Timetables",
+    "Minstartdate": "Minstartdate",
+    "Minenddate": "Minenddate",
+    "Maxstartdate": "Maxstartdate",
+    "Maxenddate": "Maxenddate",
+    "NewSurgeryTimetable": "New Surgery Timetable",
+    "Menu:SurgeryTimetables": "Surgery Timetables"
   }
 }

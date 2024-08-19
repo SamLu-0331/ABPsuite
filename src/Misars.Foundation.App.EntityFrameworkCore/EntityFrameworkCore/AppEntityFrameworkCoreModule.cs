@@ -1,3 +1,4 @@
+using Misars.Foundation.App.SurgeryTimetables;
 using Misars.Foundation.App.Doctors;
 using Misars.Foundation.App.Patients;
 using System;
@@ -54,6 +55,8 @@ public class AppEntityFrameworkCoreModule : AbpModule
             options.AddRepository<Patient, Patients.EfCorePatientRepository>();
 
             options.AddRepository<Doctor, Doctors.EfCoreDoctorRepository>();
+
+            options.AddRepository<SurgeryTimetable, SurgeryTimetables.EfCoreSurgeryTimetableRepository>();
 
         });
 

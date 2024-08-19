@@ -138,6 +138,15 @@ public class AppMenuContributor : IMenuContributor
                 icon: "fa fa-file-alt",
                 requiredPermissionName: AppPermissions.Doctors.Default)
         );
+
+        context.Menu.AddItem(
+            new ApplicationMenuItem(
+                AppMenus.SurgeryTimetables,
+                l["Menu:SurgeryTimetables"],
+                url: "/surgery-timetables",
+                icon: "fa fa-file-alt",
+                requiredPermissionName: AppPermissions.SurgeryTimetables.Default)
+        );
         return Task.CompletedTask;
     }
 

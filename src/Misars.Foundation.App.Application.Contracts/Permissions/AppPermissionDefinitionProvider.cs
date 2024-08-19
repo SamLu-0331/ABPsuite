@@ -26,6 +26,11 @@ public class AppPermissionDefinitionProvider : PermissionDefinitionProvider
         doctorPermission.AddChild(AppPermissions.Doctors.Create, L("Permission:Create"));
         doctorPermission.AddChild(AppPermissions.Doctors.Edit, L("Permission:Edit"));
         doctorPermission.AddChild(AppPermissions.Doctors.Delete, L("Permission:Delete"));
+
+        var surgeryTimetablePermission = myGroup.AddPermission(AppPermissions.SurgeryTimetables.Default, L("Permission:SurgeryTimetables"));
+        surgeryTimetablePermission.AddChild(AppPermissions.SurgeryTimetables.Create, L("Permission:Create"));
+        surgeryTimetablePermission.AddChild(AppPermissions.SurgeryTimetables.Edit, L("Permission:Edit"));
+        surgeryTimetablePermission.AddChild(AppPermissions.SurgeryTimetables.Delete, L("Permission:Delete"));
     }
 
     private static LocalizableString L(string name)

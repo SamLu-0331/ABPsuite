@@ -1,3 +1,4 @@
+using Misars.Foundation.App.SurgeryTimetables;
 using Misars.Foundation.App.Doctors;
 using Volo.Abp.AutoMapper;
 using Misars.Foundation.App.Patients;
@@ -14,5 +15,7 @@ public class AppBlazorAutoMapperProfile : Profile
         CreateMap<PatientDto, PatientUpdateDto>();
 
         CreateMap<DoctorDto, DoctorUpdateDto>();
+
+        CreateMap<SurgeryTimetableDto, SurgeryTimetableUpdateDto>();
     }
 }
