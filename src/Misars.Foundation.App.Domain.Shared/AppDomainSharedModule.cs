@@ -17,6 +17,7 @@ using Volo.Abp.OpenIddict;
 using Volo.Abp.BlobStoring.Database;
 using Volo.Abp.Gdpr;
 using Volo.Abp.GlobalFeatures;
+using Volo.FileManagement;
 
 namespace Misars.Foundation.App;
 
@@ -35,7 +36,8 @@ namespace Misars.Foundation.App;
     typeof(AbpGlobalFeaturesModule),
     typeof(BlobStoringDatabaseDomainSharedModule)
     )]
-public class AppDomainSharedModule : AbpModule
+[DependsOn(typeof(FileManagementDomainSharedModule))]
+    public class AppDomainSharedModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {

@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.Account;
 using Volo.Abp.AuditLogging;
 using Volo.Abp.FeatureManagement;
@@ -12,6 +12,7 @@ using Volo.Abp.SettingManagement;
 using Volo.Saas.Host;
 using Volo.Abp.VirtualFileSystem;
 using Volo.Abp.Gdpr;
+using Volo.FileManagement;
 
 namespace Misars.Foundation.App;
 
@@ -30,7 +31,8 @@ namespace Misars.Foundation.App;
     typeof(AbpGdprHttpApiClientModule),
     typeof(TextTemplateManagementHttpApiClientModule)
 )]
-public class AppHttpApiClientModule : AbpModule
+[DependsOn(typeof(FileManagementHttpApiClientModule))]
+    public class AppHttpApiClientModule : AbpModule
 {
     public const string RemoteServiceName = "Default";
 

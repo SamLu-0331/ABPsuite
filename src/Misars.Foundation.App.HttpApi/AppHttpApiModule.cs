@@ -1,4 +1,4 @@
-﻿using Localization.Resources.AbpUi;
+using Localization.Resources.AbpUi;
 using Misars.Foundation.App.Localization;
 using Volo.Abp.Account;
 using Volo.Abp.AuditLogging;
@@ -13,6 +13,7 @@ using Volo.Abp.SettingManagement;
 using Volo.Abp.TextTemplateManagement;
 using Volo.Abp.Gdpr;
 using Volo.Abp.OpenIddict;
+using Volo.FileManagement;
 
 namespace Misars.Foundation.App;
 
@@ -31,7 +32,8 @@ namespace Misars.Foundation.App;
     typeof(AbpAccountPublicHttpApiModule),
     typeof(TextTemplateManagementHttpApiModule)
     )]
-public class AppHttpApiModule : AbpModule
+[DependsOn(typeof(FileManagementHttpApiModule))]
+    public class AppHttpApiModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {

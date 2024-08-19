@@ -19,6 +19,7 @@ using Volo.Saas.EntityFrameworkCore;
 using Volo.Abp.BlobStoring.Database.EntityFrameworkCore;
 using Volo.Abp.Gdpr;
 using Volo.Abp.OpenIddict.EntityFrameworkCore;
+using Volo.FileManagement.EntityFrameworkCore;
 
 namespace Misars.Foundation.App.EntityFrameworkCore;
 
@@ -38,7 +39,8 @@ namespace Misars.Foundation.App.EntityFrameworkCore;
     typeof(AbpGdprEntityFrameworkCoreModule),
     typeof(BlobStoringDatabaseEntityFrameworkCoreModule)
     )]
-public class AppEntityFrameworkCoreModule : AbpModule
+[DependsOn(typeof(FileManagementEntityFrameworkCoreModule))]
+    public class AppEntityFrameworkCoreModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {

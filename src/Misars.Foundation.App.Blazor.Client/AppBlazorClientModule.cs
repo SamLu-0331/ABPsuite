@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Net.Http;
 using Blazorise.Bootstrap5;
 using Blazorise.Icons.FontAwesome;
@@ -26,6 +26,7 @@ using Volo.Abp.OpenIddict.Pro.Blazor.WebAssembly;
 using Volo.Abp.SettingManagement.Blazor.WebAssembly;
 using Volo.Abp.TextTemplateManagement.Blazor.WebAssembly;
 using Volo.Saas.Host.Blazor.WebAssembly;
+using Volo.FileManagement.Blazor.WebAssembly;
 
 
 namespace Misars.Foundation.App.Blazor.Client;
@@ -44,7 +45,8 @@ namespace Misars.Foundation.App.Blazor.Client;
     typeof(SaasHostBlazorWebAssemblyModule),
     typeof(TextTemplateManagementBlazorWebAssemblyModule)
 )]
-public class AppBlazorClientModule : AbpModule
+[DependsOn(typeof(FileManagementBlazorWebAssemblyModule))]
+    public class AppBlazorClientModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {

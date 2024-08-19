@@ -1,4 +1,4 @@
-﻿using Volo.Abp.Account;
+using Volo.Abp.Account;
 using Volo.Abp.AuditLogging;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.FeatureManagement;
@@ -11,6 +11,7 @@ using Volo.Abp.PermissionManagement;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TextTemplateManagement;
 using Volo.Saas.Host;
+using Volo.FileManagement;
 
 namespace Misars.Foundation.App;
 
@@ -30,7 +31,8 @@ namespace Misars.Foundation.App;
     typeof(AbpGdprApplicationModule),
     typeof(TextTemplateManagementApplicationModule)
     )]
-public class AppApplicationModule : AbpModule
+[DependsOn(typeof(FileManagementApplicationModule))]
+    public class AppApplicationModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
