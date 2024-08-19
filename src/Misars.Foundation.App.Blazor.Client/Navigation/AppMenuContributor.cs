@@ -1,4 +1,6 @@
-﻿using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
+using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Misars.Foundation.App.Localization;
@@ -100,13 +102,12 @@ public class AppMenuContributor : IMenuContributor
 
         //Administration->Identity
         administration.SetSubItemOrder(IdentityProMenus.GroupName, 1);
-        
+
         //Administration->Saas
         administration.SetSubItemOrder(SaasHostMenus.GroupName, 2);
 
         //Administration->OpenIddict
         administration.SetSubItemOrder(OpenIddictProMenus.GroupName, 3);
-
 
         //Administration->Language Management
         administration.SetSubItemOrder(LanguageManagementMenus.GroupName, 5);
@@ -120,6 +121,23 @@ public class AppMenuContributor : IMenuContributor
         //Administration->Settings
         administration.SetSubItemOrder(SettingManagementMenus.GroupName, 8);
 
+        context.Menu.AddItem(
+            new ApplicationMenuItem(
+                AppMenus.Patients,
+                l["Menu:Patients"],
+                url: "/patients",
+                icon: "fa fa-file-alt",
+                requiredPermissionName: AppPermissions.Patients.Default)
+        );
+
+        context.Menu.AddItem(
+            new ApplicationMenuItem(
+                AppMenus.Doctors,
+                l["Menu:Doctors"],
+                url: "/doctors",
+                icon: "fa fa-file-alt",
+                requiredPermissionName: AppPermissions.Doctors.Default)
+        );
         return Task.CompletedTask;
     }
 
@@ -145,10 +163,10 @@ public class AppMenuContributor : IMenuContributor
             target: "_blank").RequireAuthenticated());
 
         context.Menu.AddItem(new ApplicationMenuItem(
-            "Account.Sessions", 
-            accountStringLocalizer["Sessions"], 
-            url: $"{authServerUrl.EnsureEndsWith('/')}Account/Sessions", 
-            icon: "fa fa-clock", 
+            "Account.Sessions",
+            accountStringLocalizer["Sessions"],
+            url: $"{authServerUrl.EnsureEndsWith('/')}Account/Sessions",
+            icon: "fa fa-clock",
             order: 1002,
             target: "_blank").RequireAuthenticated());
 

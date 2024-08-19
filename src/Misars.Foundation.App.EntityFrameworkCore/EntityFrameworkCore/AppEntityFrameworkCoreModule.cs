@@ -1,3 +1,5 @@
+using Misars.Foundation.App.Doctors;
+using Misars.Foundation.App.Patients;
 using System;
 using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.Uow;
@@ -46,15 +48,19 @@ public class AppEntityFrameworkCoreModule : AbpModule
     {
         context.Services.AddAbpDbContext<AppDbContext>(options =>
         {
-                /* Remove "includeAllEntities: true" to create
-                 * default repositories only for aggregate roots */
+            /* Remove "includeAllEntities: true" to create
+             * default repositories only for aggregate roots */
             options.AddDefaultRepositories(includeAllEntities: true);
+            options.AddRepository<Patient, Patients.EfCorePatientRepository>();
+
+            options.AddRepository<Doctor, Doctors.EfCoreDoctorRepository>();
+
         });
 
         Configure<AbpDbContextOptions>(options =>
         {
-                /* The main point to change your DBMS.
-                 * See also AppDbContextFactory for EF Core tooling. */
+            /* The main point to change your DBMS.
+             * See also AppDbContextFactory for EF Core tooling. */
             options.UseSqlite();
         });
 

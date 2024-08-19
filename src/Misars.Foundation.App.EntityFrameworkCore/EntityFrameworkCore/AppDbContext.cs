@@ -1,3 +1,6 @@
+using Misars.Foundation.App.Doctors;
+using Misars.Foundation.App.Patients;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
@@ -28,6 +31,8 @@ public class AppDbContext :
     IIdentityProDbContext,
     ISaasDbContext
 {
+    public DbSet<Doctor> Doctors { get; set; } = null!;
+    public DbSet<Patient> Patients { get; set; } = null!;
     /* Add DbSet properties for your Aggregate Roots / Entities here. */
 
     #region Entities from the modules
@@ -93,5 +98,29 @@ public class AppDbContext :
         //    b.ConfigureByConvention(); //auto configure for the base class props
         //    //...
         //});
+        if (builder.IsHostDatabase())
+        {
+            builder.Entity<Patient>(b =>
+            {
+                b.ToTable(AppConsts.DbTablePrefix + "Patients", AppConsts.DbSchema);
+                b.ConfigureByConvention();
+                b.Property(x => x.name).HasColumnName(nameof(Patient.name)).HasMaxLength(PatientConsts.nameMaxLength);
+                b.Property(x => x.birthday).HasColumnName(nameof(Patient.birthday));
+                b.Property(x => x.phone).HasColumnName(nameof(Patient.phone)).HasMaxLength(PatientConsts.phoneMaxLength);
+            });
+
+        }
+        if (builder.IsHostDatabase())
+        {
+            builder.Entity<Doctor>(b =>
+            {
+                b.ToTable(AppConsts.DbTablePrefix + "Doctors", AppConsts.DbSchema);
+                b.ConfigureByConvention();
+                b.Property(x => x.name).HasColumnName(nameof(Doctor.name)).HasMaxLength(DoctorConsts.nameMaxLength);
+                b.Property(x => x.email).HasColumnName(nameof(Doctor.email)).HasMaxLength(DoctorConsts.emailMaxLength);
+                b.Property(x => x.notes).HasColumnName(nameof(Doctor.notes)).HasMaxLength(DoctorConsts.notesMaxLength);
+            });
+
+        }
     }
 }
