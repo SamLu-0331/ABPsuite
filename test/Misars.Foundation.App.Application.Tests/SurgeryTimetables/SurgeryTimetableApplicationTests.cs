@@ -29,19 +29,19 @@ namespace Misars.Foundation.App.SurgeryTimetables
             // Assert
             result.TotalCount.ShouldBe(2);
             result.Items.Count.ShouldBe(2);
-            result.Items.Any(x => x.SurgeryTimetable.Id == Guid.Parse("26db1a48-1ead-473a-a4a8-6b990127c0fc")).ShouldBe(true);
-            result.Items.Any(x => x.SurgeryTimetable.Id == Guid.Parse("708b2265-ddda-407f-9d8c-cfe38a86ddb7")).ShouldBe(true);
+            result.Items.Any(x => x.SurgeryTimetable.Id == Guid.Parse("5db65882-50eb-4b20-8dab-8ebfe0941f01")).ShouldBe(true);
+            result.Items.Any(x => x.SurgeryTimetable.Id == Guid.Parse("e3fe42a8-ec98-4bb6-9139-e0901e080c05")).ShouldBe(true);
         }
 
         [Fact]
         public async Task GetAsync()
         {
             // Act
-            var result = await _surgeryTimetablesAppService.GetAsync(Guid.Parse("26db1a48-1ead-473a-a4a8-6b990127c0fc"));
+            var result = await _surgeryTimetablesAppService.GetAsync(Guid.Parse("5db65882-50eb-4b20-8dab-8ebfe0941f01"));
 
             // Assert
             result.ShouldNotBeNull();
-            result.Id.ShouldBe(Guid.Parse("26db1a48-1ead-473a-a4a8-6b990127c0fc"));
+            result.Id.ShouldBe(Guid.Parse("5db65882-50eb-4b20-8dab-8ebfe0941f01"));
         }
 
         [Fact]
@@ -50,10 +50,10 @@ namespace Misars.Foundation.App.SurgeryTimetables
             // Arrange
             var input = new SurgeryTimetableCreateDto
             {
-                startdate = new DateTime(2012, 11, 1),
-                enddate = new DateTime(2022, 11, 18),
-                doctorname = "21f416631d50443eadeadab234cff18838265047bf0c485fb94b30f84690c82f800b9fb426fa489baf999d45d4f140a4e390",
-                patientname = "391c9bec85664ce694c7fa33364af74197fdd5da091c47c5937fa096657ecd5919c1c8ffe86f46d1baea7ea77dc5b583ecae"
+                startdate = new DateTime(2010, 11, 22),
+                enddate = new DateTime(2003, 1, 15),
+                AnesthesiaType = "e4da83855d6e46f7b221cce43677bf39fbb5a3e9d2e842c0943f8758903b6c0407db2da3d1be4bc3b953178f4fa0d9691a21",
+                notes = "50e5bb6e72f545758a23a9d8cb64ab364780e594b85a4ce4983010370496bb773c11048c972f42d6aa7f543726d6d661e6fb"
             };
 
             // Act
@@ -63,10 +63,10 @@ namespace Misars.Foundation.App.SurgeryTimetables
             var result = await _surgeryTimetableRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.startdate.ShouldBe(new DateTime(2012, 11, 1));
-            result.enddate.ShouldBe(new DateTime(2022, 11, 18));
-            result.doctorname.ShouldBe("21f416631d50443eadeadab234cff18838265047bf0c485fb94b30f84690c82f800b9fb426fa489baf999d45d4f140a4e390");
-            result.patientname.ShouldBe("391c9bec85664ce694c7fa33364af74197fdd5da091c47c5937fa096657ecd5919c1c8ffe86f46d1baea7ea77dc5b583ecae");
+            result.startdate.ShouldBe(new DateTime(2010, 11, 22));
+            result.enddate.ShouldBe(new DateTime(2003, 1, 15));
+            result.AnesthesiaType.ShouldBe("e4da83855d6e46f7b221cce43677bf39fbb5a3e9d2e842c0943f8758903b6c0407db2da3d1be4bc3b953178f4fa0d9691a21");
+            result.notes.ShouldBe("50e5bb6e72f545758a23a9d8cb64ab364780e594b85a4ce4983010370496bb773c11048c972f42d6aa7f543726d6d661e6fb");
         }
 
         [Fact]
@@ -75,33 +75,33 @@ namespace Misars.Foundation.App.SurgeryTimetables
             // Arrange
             var input = new SurgeryTimetableUpdateDto()
             {
-                startdate = new DateTime(2007, 11, 22),
-                enddate = new DateTime(2009, 8, 1),
-                doctorname = "527aded29f9c44fdac2317e0c75734779b05b6d4537c4905aa9d477166c0102c744e491dfeac466ea95e60c52cefd2d35901",
-                patientname = "f34ac9ff3c8f4e86b64742e8721be5c67dcbfe1f032944a19ca02234cc2ace4c8b850d1f610949348abac0d3d101ddda68c9"
+                startdate = new DateTime(2007, 1, 5),
+                enddate = new DateTime(2008, 5, 19),
+                AnesthesiaType = "0d5113c9ba894f09b3bf2c59eef814937ddd729044324b8793cd0255171bc3e0fe6e6a0d491e4550b7b3a1fe92d61132fdbf",
+                notes = "bacdbe26dc5d433aae6f9135b2b3ab3b20626503ae804c01969b00385856bae0a2d80542ad9844d4a87d0e029557f58293b0"
             };
 
             // Act
-            var serviceResult = await _surgeryTimetablesAppService.UpdateAsync(Guid.Parse("26db1a48-1ead-473a-a4a8-6b990127c0fc"), input);
+            var serviceResult = await _surgeryTimetablesAppService.UpdateAsync(Guid.Parse("5db65882-50eb-4b20-8dab-8ebfe0941f01"), input);
 
             // Assert
             var result = await _surgeryTimetableRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.startdate.ShouldBe(new DateTime(2007, 11, 22));
-            result.enddate.ShouldBe(new DateTime(2009, 8, 1));
-            result.doctorname.ShouldBe("527aded29f9c44fdac2317e0c75734779b05b6d4537c4905aa9d477166c0102c744e491dfeac466ea95e60c52cefd2d35901");
-            result.patientname.ShouldBe("f34ac9ff3c8f4e86b64742e8721be5c67dcbfe1f032944a19ca02234cc2ace4c8b850d1f610949348abac0d3d101ddda68c9");
+            result.startdate.ShouldBe(new DateTime(2007, 1, 5));
+            result.enddate.ShouldBe(new DateTime(2008, 5, 19));
+            result.AnesthesiaType.ShouldBe("0d5113c9ba894f09b3bf2c59eef814937ddd729044324b8793cd0255171bc3e0fe6e6a0d491e4550b7b3a1fe92d61132fdbf");
+            result.notes.ShouldBe("bacdbe26dc5d433aae6f9135b2b3ab3b20626503ae804c01969b00385856bae0a2d80542ad9844d4a87d0e029557f58293b0");
         }
 
         [Fact]
         public async Task DeleteAsync()
         {
             // Act
-            await _surgeryTimetablesAppService.DeleteAsync(Guid.Parse("26db1a48-1ead-473a-a4a8-6b990127c0fc"));
+            await _surgeryTimetablesAppService.DeleteAsync(Guid.Parse("5db65882-50eb-4b20-8dab-8ebfe0941f01"));
 
             // Assert
-            var result = await _surgeryTimetableRepository.FindAsync(c => c.Id == Guid.Parse("26db1a48-1ead-473a-a4a8-6b990127c0fc"));
+            var result = await _surgeryTimetableRepository.FindAsync(c => c.Id == Guid.Parse("5db65882-50eb-4b20-8dab-8ebfe0941f01"));
 
             result.ShouldBeNull();
         }

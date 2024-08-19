@@ -126,14 +126,18 @@ public class AppDbContext :
         }
         if (builder.IsHostDatabase())
         {
+
+        }
+        if (builder.IsHostDatabase())
+        {
             builder.Entity<SurgeryTimetable>(b =>
             {
                 b.ToTable(AppConsts.DbTablePrefix + "SurgeryTimetables", AppConsts.DbSchema);
                 b.ConfigureByConvention();
                 b.Property(x => x.startdate).HasColumnName(nameof(SurgeryTimetable.startdate));
                 b.Property(x => x.enddate).HasColumnName(nameof(SurgeryTimetable.enddate));
-                b.Property(x => x.doctorname).HasColumnName(nameof(SurgeryTimetable.doctorname)).HasMaxLength(SurgeryTimetableConsts.doctornameMaxLength);
-                b.Property(x => x.patientname).HasColumnName(nameof(SurgeryTimetable.patientname)).HasMaxLength(SurgeryTimetableConsts.patientnameMaxLength);
+                b.Property(x => x.AnesthesiaType).HasColumnName(nameof(SurgeryTimetable.AnesthesiaType)).HasMaxLength(SurgeryTimetableConsts.AnesthesiaTypeMaxLength);
+                b.Property(x => x.notes).HasColumnName(nameof(SurgeryTimetable.notes)).HasMaxLength(SurgeryTimetableConsts.notesMaxLength);
                 b.HasOne<Doctor>().WithMany().HasForeignKey(x => x.DoctorId).OnDelete(DeleteBehavior.SetNull);
                 b.HasOne<Patient>().WithMany().HasForeignKey(x => x.PatientId).OnDelete(DeleteBehavior.SetNull);
             });

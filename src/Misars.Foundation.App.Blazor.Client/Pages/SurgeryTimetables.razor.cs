@@ -162,7 +162,7 @@ private IReadOnlyList<LookupDto<Guid>> PatientsCollection { get; set; } = new Li
                 culture = "&culture=" + culture;
             }
             await RemoteServiceConfigurationProvider.GetConfigurationOrDefaultOrNullAsync("Default");
-            NavigationManager.NavigateTo($"{remoteService?.BaseUrl.EnsureEndsWith('/') ?? string.Empty}api/app/surgery-timetables/as-excel-file?DownloadToken={token}&FilterText={HttpUtility.UrlEncode(Filter.FilterText)}{culture}&startdateMin={Filter.startdateMin?.ToString("O")}&startdateMax={Filter.startdateMax?.ToString("O")}&enddateMin={Filter.enddateMin?.ToString("O")}&enddateMax={Filter.enddateMax?.ToString("O")}&doctorname={HttpUtility.UrlEncode(Filter.doctorname)}&patientname={HttpUtility.UrlEncode(Filter.patientname)}&DoctorId={Filter.DoctorId}&PatientId={Filter.PatientId}", forceLoad: true);
+            NavigationManager.NavigateTo($"{remoteService?.BaseUrl.EnsureEndsWith('/') ?? string.Empty}api/app/surgery-timetables/as-excel-file?DownloadToken={token}&FilterText={HttpUtility.UrlEncode(Filter.FilterText)}{culture}&startdateMin={Filter.startdateMin?.ToString("O")}&startdateMax={Filter.startdateMax?.ToString("O")}&enddateMin={Filter.enddateMin?.ToString("O")}&enddateMax={Filter.enddateMax?.ToString("O")}&AnesthesiaType={HttpUtility.UrlEncode(Filter.AnesthesiaType)}&notes={HttpUtility.UrlEncode(Filter.notes)}&DoctorId={Filter.DoctorId}&PatientId={Filter.PatientId}", forceLoad: true);
         }
 
         private async Task OnDataGridReadAsync(DataGridReadDataEventArgs<SurgeryTimetableWithNavigationPropertiesDto> e)
@@ -304,14 +304,14 @@ enddate = DateTime.Now,
             Filter.enddateMax = enddateMax.HasValue ? enddateMax.Value.Date.AddDays(1).AddSeconds(-1) : enddateMax;
             await SearchAsync();
         }
-        protected virtual async Task OndoctornameChangedAsync(string? doctorname)
+        protected virtual async Task OnAnesthesiaTypeChangedAsync(string? anesthesiaType)
         {
-            Filter.doctorname = doctorname;
+            Filter.AnesthesiaType = anesthesiaType;
             await SearchAsync();
         }
-        protected virtual async Task OnpatientnameChangedAsync(string? patientname)
+        protected virtual async Task OnnotesChangedAsync(string? notes)
         {
-            Filter.patientname = patientname;
+            Filter.notes = notes;
             await SearchAsync();
         }
         protected virtual async Task OnDoctorIdChangedAsync(Guid? doctorId)

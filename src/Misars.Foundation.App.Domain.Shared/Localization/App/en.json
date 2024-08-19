@@ -89,6 +89,7 @@
     "Maxstartdate": "Maxstartdate",
     "Maxenddate": "Maxenddate",
     "NewSurgeryTimetable": "New Surgery Timetable",
-    "Menu:SurgeryTimetables": "Surgery Timetables"
+    "Menu:SurgeryTimetables": "Surgery Timetables",
+    "AnesthesiaType": "Anesthesia Type"
   }
 }

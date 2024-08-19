@@ -144,7 +144,7 @@ public class AppMenuContributor : IMenuContributor
                 AppMenus.SurgeryTimetables,
                 l["Menu:SurgeryTimetables"],
                 url: "/surgery-timetables",
-                icon: "fa fa-file-alt",
+icon: "fa fa-file-alt",
                 requiredPermissionName: AppPermissions.SurgeryTimetables.Default)
         );
         return Task.CompletedTask;

@@ -27,15 +27,15 @@ namespace Misars.Foundation.App.SurgeryTimetables
             DateTime? startdateMax = null,
             DateTime? enddateMin = null,
             DateTime? enddateMax = null,
-            string? doctorname = null,
-            string? patientname = null,
+            string? anesthesiaType = null,
+            string? notes = null,
             Guid? doctorId = null,
             Guid? patientId = null,
             CancellationToken cancellationToken = default)
         {
             var query = await GetQueryForNavigationPropertiesAsync();
 
-            query = ApplyFilter(query, filterText, startdateMin, startdateMax, enddateMin, enddateMax, doctorname, patientname, doctorId, patientId);
+            query = ApplyFilter(query, filterText, startdateMin, startdateMax, enddateMin, enddateMax, anesthesiaType, notes, doctorId, patientId);
 
             var ids = query.Select(x => x.SurgeryTimetable.Id);
             await DeleteManyAsync(ids, cancellationToken: GetCancellationToken(cancellationToken));
@@ -60,8 +60,8 @@ namespace Misars.Foundation.App.SurgeryTimetables
             DateTime? startdateMax = null,
             DateTime? enddateMin = null,
             DateTime? enddateMax = null,
-            string? doctorname = null,
-            string? patientname = null,
+            string? anesthesiaType = null,
+            string? notes = null,
             Guid? doctorId = null,
             Guid? patientId = null,
             string? sorting = null,
@@ -70,7 +70,7 @@ namespace Misars.Foundation.App.SurgeryTimetables
             CancellationToken cancellationToken = default)
         {
             var query = await GetQueryForNavigationPropertiesAsync();
-            query = ApplyFilter(query, filterText, startdateMin, startdateMax, enddateMin, enddateMax, doctorname, patientname, doctorId, patientId);
+            query = ApplyFilter(query, filterText, startdateMin, startdateMax, enddateMin, enddateMax, anesthesiaType, notes, doctorId, patientId);
             query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? SurgeryTimetableConsts.GetDefaultSorting(true) : sorting);
             return await query.PageBy(skipCount, maxResultCount).ToListAsync(cancellationToken);
         }
@@ -97,19 +97,19 @@ namespace Misars.Foundation.App.SurgeryTimetables
             DateTime? startdateMax = null,
             DateTime? enddateMin = null,
             DateTime? enddateMax = null,
-            string? doctorname = null,
-            string? patientname = null,
+            string? anesthesiaType = null,
+            string? notes = null,
             Guid? doctorId = null,
             Guid? patientId = null)
         {
             return query
-                .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.SurgeryTimetable.doctorname!.Contains(filterText!) || e.SurgeryTimetable.patientname!.Contains(filterText!))
+                .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.SurgeryTimetable.AnesthesiaType!.Contains(filterText!) || e.SurgeryTimetable.notes!.Contains(filterText!))
                     .WhereIf(startdateMin.HasValue, e => e.SurgeryTimetable.startdate >= startdateMin!.Value)
                     .WhereIf(startdateMax.HasValue, e => e.SurgeryTimetable.startdate <= startdateMax!.Value)
                     .WhereIf(enddateMin.HasValue, e => e.SurgeryTimetable.enddate >= enddateMin!.Value)
                     .WhereIf(enddateMax.HasValue, e => e.SurgeryTimetable.enddate <= enddateMax!.Value)
-                    .WhereIf(!string.IsNullOrWhiteSpace(doctorname), e => e.SurgeryTimetable.doctorname.Contains(doctorname))
-                    .WhereIf(!string.IsNullOrWhiteSpace(patientname), e => e.SurgeryTimetable.patientname.Contains(patientname))
+                    .WhereIf(!string.IsNullOrWhiteSpace(anesthesiaType), e => e.SurgeryTimetable.AnesthesiaType.Contains(anesthesiaType))
+                    .WhereIf(!string.IsNullOrWhiteSpace(notes), e => e.SurgeryTimetable.notes.Contains(notes))
                     .WhereIf(doctorId != null && doctorId != Guid.Empty, e => e.Doctor != null && e.Doctor.Id == doctorId)
                     .WhereIf(patientId != null && patientId != Guid.Empty, e => e.Patient != null && e.Patient.Id == patientId);
         }
@@ -120,14 +120,14 @@ namespace Misars.Foundation.App.SurgeryTimetables
             DateTime? startdateMax = null,
             DateTime? enddateMin = null,
             DateTime? enddateMax = null,
-            string? doctorname = null,
-            string? patientname = null,
+            string? anesthesiaType = null,
+            string? notes = null,
             string? sorting = null,
             int maxResultCount = int.MaxValue,
             int skipCount = 0,
             CancellationToken cancellationToken = default)
         {
-            var query = ApplyFilter((await GetQueryableAsync()), filterText, startdateMin, startdateMax, enddateMin, enddateMax, doctorname, patientname);
+            var query = ApplyFilter((await GetQueryableAsync()), filterText, startdateMin, startdateMax, enddateMin, enddateMax, anesthesiaType, notes);
             query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? SurgeryTimetableConsts.GetDefaultSorting(false) : sorting);
             return await query.PageBy(skipCount, maxResultCount).ToListAsync(cancellationToken);
         }
@@ -138,14 +138,14 @@ namespace Misars.Foundation.App.SurgeryTimetables
             DateTime? startdateMax = null,
             DateTime? enddateMin = null,
             DateTime? enddateMax = null,
-            string? doctorname = null,
-            string? patientname = null,
+            string? anesthesiaType = null,
+            string? notes = null,
             Guid? doctorId = null,
             Guid? patientId = null,
             CancellationToken cancellationToken = default)
         {
             var query = await GetQueryForNavigationPropertiesAsync();
-            query = ApplyFilter(query, filterText, startdateMin, startdateMax, enddateMin, enddateMax, doctorname, patientname, doctorId, patientId);
+            query = ApplyFilter(query, filterText, startdateMin, startdateMax, enddateMin, enddateMax, anesthesiaType, notes, doctorId, patientId);
             return await query.LongCountAsync(GetCancellationToken(cancellationToken));
         }
 
@@ -156,17 +156,17 @@ namespace Misars.Foundation.App.SurgeryTimetables
             DateTime? startdateMax = null,
             DateTime? enddateMin = null,
             DateTime? enddateMax = null,
-            string? doctorname = null,
-            string? patientname = null)
+            string? anesthesiaType = null,
+            string? notes = null)
         {
             return query
-                    .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.doctorname!.Contains(filterText!) || e.patientname!.Contains(filterText!))
+                    .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.AnesthesiaType!.Contains(filterText!) || e.notes!.Contains(filterText!))
                     .WhereIf(startdateMin.HasValue, e => e.startdate >= startdateMin!.Value)
                     .WhereIf(startdateMax.HasValue, e => e.startdate <= startdateMax!.Value)
                     .WhereIf(enddateMin.HasValue, e => e.enddate >= enddateMin!.Value)
                     .WhereIf(enddateMax.HasValue, e => e.enddate <= enddateMax!.Value)
-                    .WhereIf(!string.IsNullOrWhiteSpace(doctorname), e => e.doctorname.Contains(doctorname))
-                    .WhereIf(!string.IsNullOrWhiteSpace(patientname), e => e.patientname.Contains(patientname));
+                    .WhereIf(!string.IsNullOrWhiteSpace(anesthesiaType), e => e.AnesthesiaType.Contains(anesthesiaType))
+                    .WhereIf(!string.IsNullOrWhiteSpace(notes), e => e.notes.Contains(notes));
         }
     }
 }

@@ -106,14 +106,14 @@
                 </Column>
                 <Column ColumnSize="ColumnSize.Is3">
                     <Field>
-                        <FieldLabel>@L["doctorname"]</FieldLabel>
-                        <TextEdit Text="@Filter.doctorname" TextChanged="@OndoctornameChangedAsync" />                       
+                        <FieldLabel>@L["AnesthesiaType"]</FieldLabel>
+                        <TextEdit Text="@Filter.AnesthesiaType" TextChanged="@OnAnesthesiaTypeChangedAsync" />                       
                     </Field>
                 </Column>
                 <Column ColumnSize="ColumnSize.Is3">
                     <Field>
-                        <FieldLabel>@L["patientname"]</FieldLabel>
-                        <TextEdit Text="@Filter.patientname" TextChanged="@OnpatientnameChangedAsync" />                       
+                        <FieldLabel>@L["notes"]</FieldLabel>
+                        <TextEdit Text="@Filter.notes" TextChanged="@OnnotesChangedAsync" />                       
                     </Field>
                 </Column>
                 <Column ColumnSize="ColumnSize.Is3">
@@ -283,13 +283,13 @@
               </DataGridColumn>
 
               <DataGridColumn TItem="SurgeryTimetableWithNavigationPropertiesDto"
-                      Field="SurgeryTimetable.doctorname"
-                      Caption="@L["doctorname"]">
+                      Field="SurgeryTimetable.AnesthesiaType"
+                      Caption="@L["AnesthesiaType"]">
               </DataGridColumn>
 
               <DataGridColumn TItem="SurgeryTimetableWithNavigationPropertiesDto"
-                      Field="SurgeryTimetable.patientname"
-                      Caption="@L["patientname"]">
+                      Field="SurgeryTimetable.notes"
+                      Caption="@L["notes"]">
               </DataGridColumn>
 
               <DataGridColumn TItem="SurgeryTimetableWithNavigationPropertiesDto"
@@ -352,8 +352,8 @@
 
                     <Validation MessageLocalizer="@LH.Localize">
                         <Field>
-                            <FieldLabel>@L["doctorname"]</FieldLabel>
-                            <TextEdit @bind-Text="@NewSurgeryTimetable.doctorname" MaxLength="SurgeryTimetableConsts.doctornameMaxLength" >
+                            <FieldLabel>@L["AnesthesiaType"]</FieldLabel>
+                            <TextEdit @bind-Text="@NewSurgeryTimetable.AnesthesiaType" MaxLength="SurgeryTimetableConsts.AnesthesiaTypeMaxLength" >
                                 <Feedback>
                                     <ValidationError />
                                 </Feedback>
@@ -364,8 +364,8 @@
 
                     <Validation MessageLocalizer="@LH.Localize">
                         <Field>
-                            <FieldLabel>@L["patientname"]</FieldLabel>
-                            <TextEdit @bind-Text="@NewSurgeryTimetable.patientname" MaxLength="SurgeryTimetableConsts.patientnameMaxLength" >
+                            <FieldLabel>@L["notes"]</FieldLabel>
+                            <TextEdit @bind-Text="@NewSurgeryTimetable.notes" MaxLength="SurgeryTimetableConsts.notesMaxLength" >
                                 <Feedback>
                                     <ValidationError />
                                 </Feedback>
@@ -464,8 +464,8 @@
 
                     <Validation MessageLocalizer="@LH.Localize">
                         <Field>
-                            <FieldLabel>@L["doctorname"]</FieldLabel>
-                            <TextEdit @bind-Text="@EditingSurgeryTimetable.doctorname" MaxLength="SurgeryTimetableConsts.doctornameMaxLength" >
+                            <FieldLabel>@L["AnesthesiaType"]</FieldLabel>
+                            <TextEdit @bind-Text="@EditingSurgeryTimetable.AnesthesiaType" MaxLength="SurgeryTimetableConsts.AnesthesiaTypeMaxLength" >
                                 <Feedback>
                                     <ValidationError />
                                 </Feedback>
@@ -476,8 +476,8 @@
 
                     <Validation MessageLocalizer="@LH.Localize">
                         <Field>
-                            <FieldLabel>@L["patientname"]</FieldLabel>
-                            <TextEdit @bind-Text="@EditingSurgeryTimetable.patientname" MaxLength="SurgeryTimetableConsts.patientnameMaxLength" >
+                            <FieldLabel>@L["notes"]</FieldLabel>
+                            <TextEdit @bind-Text="@EditingSurgeryTimetable.notes" MaxLength="SurgeryTimetableConsts.notesMaxLength" >
                                 <Feedback>
                                     <ValidationError />
                                 </Feedback>

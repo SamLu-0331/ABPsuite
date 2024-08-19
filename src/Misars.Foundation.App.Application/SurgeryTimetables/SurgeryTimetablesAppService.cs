@@ -45,8 +45,8 @@ namespace Misars.Foundation.App.SurgeryTimetables
 
         public virtual async Task<PagedResultDto<SurgeryTimetableWithNavigationPropertiesDto>> GetListAsync(GetSurgeryTimetablesInput input)
         {
-            var totalCount = await _surgeryTimetableRepository.GetCountAsync(input.FilterText, input.startdateMin, input.startdateMax, input.enddateMin, input.enddateMax, input.doctorname, input.patientname, input.DoctorId, input.PatientId);
-            var items = await _surgeryTimetableRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.startdateMin, input.startdateMax, input.enddateMin, input.enddateMax, input.doctorname, input.patientname, input.DoctorId, input.PatientId, input.Sorting, input.MaxResultCount, input.SkipCount);
+            var totalCount = await _surgeryTimetableRepository.GetCountAsync(input.FilterText, input.startdateMin, input.startdateMax, input.enddateMin, input.enddateMax, input.AnesthesiaType, input.notes, input.DoctorId, input.PatientId);
+            var items = await _surgeryTimetableRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.startdateMin, input.startdateMax, input.enddateMin, input.enddateMax, input.AnesthesiaType, input.notes, input.DoctorId, input.PatientId, input.Sorting, input.MaxResultCount, input.SkipCount);
 
             return new PagedResultDto<SurgeryTimetableWithNavigationPropertiesDto>
             {
@@ -109,7 +109,7 @@ namespace Misars.Foundation.App.SurgeryTimetables
         {
 
             var surgeryTimetable = await _surgeryTimetableManager.CreateAsync(
-            input.DoctorId, input.PatientId, input.startdate, input.enddate, input.doctorname, input.patientname
+            input.DoctorId, input.PatientId, input.startdate, input.enddate, input.AnesthesiaType, input.notes
             );
 
             return ObjectMapper.Map<SurgeryTimetable, SurgeryTimetableDto>(surgeryTimetable);
@@ -121,7 +121,7 @@ namespace Misars.Foundation.App.SurgeryTimetables
 
             var surgeryTimetable = await _surgeryTimetableManager.UpdateAsync(
             id,
-            input.DoctorId, input.PatientId, input.startdate, input.enddate, input.doctorname, input.patientname, input.ConcurrencyStamp
+            input.DoctorId, input.PatientId, input.startdate, input.enddate, input.AnesthesiaType, input.notes, input.ConcurrencyStamp
             );
 
             return ObjectMapper.Map<SurgeryTimetable, SurgeryTimetableDto>(surgeryTimetable);
@@ -136,13 +136,13 @@ namespace Misars.Foundation.App.SurgeryTimetables
                 throw new AbpAuthorizationException("Invalid download token: " + input.DownloadToken);
             }
 
-            var surgeryTimetables = await _surgeryTimetableRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.startdateMin, input.startdateMax, input.enddateMin, input.enddateMax, input.doctorname, input.patientname, input.DoctorId, input.PatientId);
+            var surgeryTimetables = await _surgeryTimetableRepository.GetListWithNavigationPropertiesAsync(input.FilterText, input.startdateMin, input.startdateMax, input.enddateMin, input.enddateMax, input.AnesthesiaType, input.notes, input.DoctorId, input.PatientId);
             var items = surgeryTimetables.Select(item => new
             {
                 startdate = item.SurgeryTimetable.startdate,
                 enddate = item.SurgeryTimetable.enddate,
-                doctorname = item.SurgeryTimetable.doctorname,
-                patientname = item.SurgeryTimetable.patientname,
+                AnesthesiaType = item.SurgeryTimetable.AnesthesiaType,
+                notes = item.SurgeryTimetable.notes,
 
                 Doctor = item.Doctor?.name,
                 Patient = item.Patient?.name,
@@ -165,7 +165,7 @@ namespace Misars.Foundation.App.SurgeryTimetables
         [Authorize(AppPermissions.SurgeryTimetables.Delete)]
         public virtual async Task DeleteAllAsync(GetSurgeryTimetablesInput input)
         {
-            await _surgeryTimetableRepository.DeleteAllAsync(input.FilterText, input.startdateMin, input.startdateMax, input.enddateMin, input.enddateMax, input.doctorname, input.patientname, input.DoctorId, input.PatientId);
+            await _surgeryTimetableRepository.DeleteAllAsync(input.FilterText, input.startdateMin, input.startdateMax, input.enddateMin, input.enddateMax, input.AnesthesiaType, input.notes, input.DoctorId, input.PatientId);
         }
         public virtual async Task<Misars.Foundation.App.Shared.DownloadTokenResultDto> GetDownloadTokenAsync()
         {

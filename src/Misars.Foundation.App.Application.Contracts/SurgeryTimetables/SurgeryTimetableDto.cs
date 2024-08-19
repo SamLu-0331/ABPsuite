@@ -10,8 +10,8 @@ namespace Misars.Foundation.App.SurgeryTimetables
     {
         public DateTime startdate { get; set; }
         public DateTime enddate { get; set; }
-        public string? doctorname { get; set; }
-        public string? patientname { get; set; }
+        public string? AnesthesiaType { get; set; }
+        public string? notes { get; set; }
         public Guid? DoctorId { get; set; }
         public Guid? PatientId { get; set; }
 

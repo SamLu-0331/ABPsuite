@@ -20,16 +20,16 @@ namespace Misars.Foundation.App.SurgeryTimetables
         }
 
         public virtual async Task<SurgeryTimetable> CreateAsync(
-        Guid? doctorId, Guid? patientId, DateTime startdate, DateTime enddate, string? doctorname = null, string? patientname = null)
+        Guid? doctorId, Guid? patientId, DateTime startdate, DateTime enddate, string? anesthesiaType = null, string? notes = null)
         {
             Check.NotNull(startdate, nameof(startdate));
             Check.NotNull(enddate, nameof(enddate));
-            Check.Length(doctorname, nameof(doctorname), SurgeryTimetableConsts.doctornameMaxLength, SurgeryTimetableConsts.doctornameMinLength);
-            Check.Length(patientname, nameof(patientname), SurgeryTimetableConsts.patientnameMaxLength, SurgeryTimetableConsts.patientnameMinLength);
+            Check.Length(anesthesiaType, nameof(anesthesiaType), SurgeryTimetableConsts.AnesthesiaTypeMaxLength);
+            Check.Length(notes, nameof(notes), SurgeryTimetableConsts.notesMaxLength);
 
             var surgeryTimetable = new SurgeryTimetable(
              GuidGenerator.Create(),
-             doctorId, patientId, startdate, enddate, doctorname, patientname
+             doctorId, patientId, startdate, enddate, anesthesiaType, notes
              );
 
             return await _surgeryTimetableRepository.InsertAsync(surgeryTimetable);
@@ -37,13 +37,13 @@ namespace Misars.Foundation.App.SurgeryTimetables
 
         public virtual async Task<SurgeryTimetable> UpdateAsync(
             Guid id,
-            Guid? doctorId, Guid? patientId, DateTime startdate, DateTime enddate, string? doctorname = null, string? patientname = null, [CanBeNull] string? concurrencyStamp = null
+            Guid? doctorId, Guid? patientId, DateTime startdate, DateTime enddate, string? anesthesiaType = null, string? notes = null, [CanBeNull] string? concurrencyStamp = null
         )
         {
             Check.NotNull(startdate, nameof(startdate));
             Check.NotNull(enddate, nameof(enddate));
-            Check.Length(doctorname, nameof(doctorname), SurgeryTimetableConsts.doctornameMaxLength, SurgeryTimetableConsts.doctornameMinLength);
-            Check.Length(patientname, nameof(patientname), SurgeryTimetableConsts.patientnameMaxLength, SurgeryTimetableConsts.patientnameMinLength);
+            Check.Length(anesthesiaType, nameof(anesthesiaType), SurgeryTimetableConsts.AnesthesiaTypeMaxLength);
+            Check.Length(notes, nameof(notes), SurgeryTimetableConsts.notesMaxLength);
 
             var surgeryTimetable = await _surgeryTimetableRepository.GetAsync(id);
 
@@ -51,8 +51,8 @@ namespace Misars.Foundation.App.SurgeryTimetables
             surgeryTimetable.PatientId = patientId;
             surgeryTimetable.startdate = startdate;
             surgeryTimetable.enddate = enddate;
-            surgeryTimetable.doctorname = doctorname;
-            surgeryTimetable.patientname = patientname;
+            surgeryTimetable.AnesthesiaType = anesthesiaType;
+            surgeryTimetable.notes = notes;
 
             surgeryTimetable.SetConcurrencyStampIfNotNull(concurrencyStamp);
             return await _surgeryTimetableRepository.UpdateAsync(surgeryTimetable);

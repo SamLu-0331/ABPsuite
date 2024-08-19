@@ -9,9 +9,7 @@ namespace Misars.Foundation.App.SurgeryTimetables
             return string.Format(DefaultSorting, withEntityName ? "SurgeryTimetable." : string.Empty);
         }
 
-        public const int doctornameMinLength = 0;
-        public const int doctornameMaxLength = 100;
-        public const int patientnameMinLength = 0;
-        public const int patientnameMaxLength = 100;
+        public const int AnesthesiaTypeMaxLength = 100;
+        public const int notesMaxLength = 100;
     }
 }
